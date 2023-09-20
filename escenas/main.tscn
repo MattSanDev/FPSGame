@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://27fi6fnvusxu"]
+
+[ext_resource type="Texture2D" uid="uid://b2wrod3qw0s1s" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="1_o4bn6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85vto"]
+albedo_texture = ExtResource("1_o4bn6")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c765n"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_oigbm"]
+sky_material = SubResource("ProceduralSkyMaterial_c765n")
+
+[sub_resource type="Environment" id="Environment_tgv1i"]
+background_mode = 2
+sky = SubResource("Sky_oigbm")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+
+[node name="Nivel" type="Node3D" parent="."]
+
+[node name="Piso" type="CSGBox3D" parent="Nivel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(30, 1, 30)
+material = SubResource("StandardMaterial3D_85vto")
+
+[node name="Ambiente" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Ambiente"]
+environment = SubResource("Environment_tgv1i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ambiente"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
